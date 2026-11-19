@@ -115,7 +115,7 @@ li { margin-bottom: .45em; }
 .nav-overlay {
   position: fixed; inset: 0; background: rgba(20,35,35,0.5);
   opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s;
-  z-index: 90; backdrop-filter: blur(2px);
+  z-index: 40; backdrop-filter: blur(2px);
 }
 .nav-overlay.is-active { opacity: 1; visibility: visible; }
 
@@ -342,13 +342,29 @@ tr:last-child td { border-bottom: 0; }
   .about-photo { max-width: 420px; margin: 0 auto; }
 }
 
+/* =========================================
+   ИСПРАВЛЕНИЕ МОБИЛЬНОГО МЕНЮ (отключаем blur)
+   ========================================= */
 @media (max-width: 820px) {
-  .burger { display: flex; }
+  .header {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--bg) !important;
+    z-index: 100; /* Шапка выше затемнения */
+  }
+
+  .burger { 
+    display: flex; 
+    position: relative;
+    z-index: 102; /* Бургер всегда на самом верху */
+  }
+
   .nav {
     position: fixed; top: 0; right: -100%; width: min(340px, 88vw);
     height: 100dvh; background: var(--white); flex-direction: column;
     align-items: stretch; gap: 0; padding: 96px 28px 44px;
-    z-index: 100; transition: right .35s var(--ease);
+    z-index: 101; /* Меню выше затемнения */
+    transition: right .35s var(--ease);
     box-shadow: -12px 0 40px rgba(0,0,0,0.18); overflow-y: auto;
   }
   .nav--open { right: 0; }
